@@ -43,7 +43,7 @@ class DataBase
 
     public function insert_digits_array(array $array): void
     {
-        $query = "INSERT INTO `rand_numbers` (DigitId, Digit) values ";
+        $query = "REPLACE INTO `rand_numbers` (DigitId, Digit) values ";
         for ($i = 0; $i < count($array); $i++) {
             if ($i != 0) {
                 $query .= ", ";

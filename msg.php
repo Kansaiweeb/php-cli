@@ -64,6 +64,13 @@ class Initiator extends Msg
             print 'Job created' . PHP_EOL;
         }
     }
+
+    public function insert_array(array $array)
+    {
+        $db = new DataBase();
+        $db->insert_digits_array($array);
+        print_r($db->get_digits_array());
+    }
 }
 
 class Executor extends Msg
@@ -84,6 +91,10 @@ class Executor extends Msg
             $msg = json_decode($encoded_msg->body, true);
             echo "Received task ", $msg["task"], "\n";
             $result = $this->match_job($msg);
+            if ($msg['task'] == "sort") {
+                $init = new Initiator();
+                $init->insert_array($result);
+            }
             if ($result) {
                 echo "Done", "\n";
                 echo "Result: ";
